@@ -1,0 +1,125 @@
+<div class="container" style="max-width: 100%;">
+        <div class="form-group row" style="max-width: 20%;margin:10px auto; background-color: mediumpurple">
+                <label for="sel1" class="col-md-4" style="margin-top: 5px"><strong>Filter By: </strong></label>
+                <div class="col-md-8">
+                <select class="form-control col-md-8" id="sel1" (change)="filterSelected($event.target.value)">
+                        <option>All</option>
+                        <option>Eric</option>
+                        <option>Gavin</option>
+                        <option>Hari</option>
+                        <option>Joyce</option>
+                        <option>Kanaka</option>
+                        <option>Krishna</option>
+                        <option>Nagendran</option>
+                        <option>Ramya</option>
+                        <option>Riyaz</option>
+                        <option>Sylvia</option>
+                        <option>Wanda</option>
+                </select>
+            </div>
+            </div>
+    <table class="table table-hover">
+        <thead style="background-color: darkseagreen;">
+            <tr>
+                <th scope="col">
+                    <label for="addStoryBtn">Backlog</label><br>
+                    <button id="addStoryBtn" type="submit" class="btn btn-primary" (click)="openModal(myModel)">Add User Story</button>
+                </th>
+                <th scope="col">DEVELOPMENT IN PROGRESS</th>
+                <th scope="col">QA READY</th>
+                <th scope="col">QA INPROGRESS</th>
+                <th scope="col">QA COMPLETED</th>
+                <!-- <th scope="col">BIZ/UAT SIGNOFF</th> -->
+                <th scope="col">PROD READY</th>
+                <th scope="col">DEPLOYED-DONE</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            <!-- start of modal -->
+
+            <div #myModel class="modal fade" id="usModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title ">Add a story to board</h5>
+                            <button type="button" class="close" (click)="closeModel(myModel)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label class="control-label">userstory number</label>
+                                    <div>
+                                        <input type="text" id="usno" class="form-control input-lg" name="userstory number" value="" #usNumber>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">userstory description</label>
+                                    <div>
+                                        <input type="text" id="usdesc" class="form-control input-lg" name="userstory description" value="" #usDescription>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">userstory points</label>
+                                    <div>
+                                        <input type="text" id="uspoints" class="form-control input-lg" name="userstory points" value="" #usPoints>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="color">userstory owner </label>
+                                    <select id="usowner" class="form-control" (change)="chooseOwner($event.target.value, usNumber.value)">
+                                        <option *ngFor="let user of usersList" [value]="user">{{user}}</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="color">Choose your color </label>
+                                    <select class="form-control" id="color" (change)="choosecolor($event.target.value, usNumber.value)">
+                                        <option *ngFor="let color of colors" [value]="color">{{color}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <button type="submit" class="btn btn-success" (click)="addStoryToBoard($event)">Add to board</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of modal -->
+            <tr class="table-danger">
+                <td>
+                    <app-story [storyList]="userstoryList" [filterName]="filterByName" (editUS)="editUserStory($event)"></app-story>
+                </td>
+                <td>            
+                    <app-story [storyList]="dipList" [filterName]="filterByName" (editUS)="editUserStory($event)"></app-story>
+                </td>
+                <td>
+                    <app-story [storyList]="qarList" [filterName]="filterByName" (editUS)="editUserStory($event)"></app-story>
+                </td>
+                <td>
+                    <app-story [storyList]="qipList" [filterName]="filterByName" (editUS)="editUserStory($event)"></app-story>
+                </td>
+                <td>
+                    <app-story [storyList]="qacList" [filterName]="filterByName" (editUS)="editUserStory($event)"></app-story>
+                </td>
+                <!-- <td>
+                    <app-story [storyList]="uatList" [filterName]="filterByName" (editUS)="editUserStory($event)"></app-story>
+                </td> -->
+                <td>
+                    <app-story [storyList]="prList" [filterName]="filterByName" (editUS)="editUserStory($event)"></app-story>
+                </td>
+                <td>
+                    <app-story [storyList]="deployedList" [filterName]="filterByName" (editUS)="editUserStory($event)"></app-story>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

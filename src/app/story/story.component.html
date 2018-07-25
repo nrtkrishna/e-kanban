@@ -1,0 +1,21 @@
+<div *ngFor="let story of uList" class="card card-custom" [ngStyle]="{'backgroundColor':story.usColor}">
+    <div class="card-body" *ngIf="story.usNumber && story.show === true ">
+            <button type="button" class="close" aria-label="Close" style="margin-top:-5px;" (click)="deleteFromBoard(story)">
+                    <span aria-hidden="true">&times;</span>
+            </button>
+      <div>{{story.usNumber}}</div>
+      <div>{{story.usDescription}}</div>
+      <div><strong>Owner : {{story.usOwner}} </strong></div>
+      <div>{{story.usPoints}}</div>
+      <div class="form-group">
+          <label for="category">Where to move? </label>
+          <select class="form-control" id="category" (change)="moveUserstory($event.target.value,story,story.status)" required>
+              <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+          </select>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-dark btn-sm float-md-right" (click)="editStory(story)">Edit</button>
+      </div>
+
+  </div>
+</div>
